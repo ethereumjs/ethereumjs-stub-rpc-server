@@ -3,9 +3,6 @@ var AbstractServer = require("./abstract-server.js");
 var net = require("net");
 var oboe = require("oboe");
 
-/**
- * Implementation of AbstractServer that uses IPC as its transport.
- */
 function IpcServer(ipcPath) {
   AbstractServer.call(this);
 

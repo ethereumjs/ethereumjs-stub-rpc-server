@@ -2,9 +2,6 @@ var AbstractServer = require("./abstract-server.js");
 
 var WebSocket = require("ws");
 
-/**
- * Implementation of AbstractServer that uses Web Sockets for its transport.
- */
 function WsServer(address) {
   AbstractServer.call(this);
 

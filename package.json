@@ -3,7 +3,8 @@
   "version": "1.0.1",
   "description": "Stub server for testing JavaScript ethereum clients.",
   "author": "",
-  "main": "source/index.js",
+  "main": "./source/index.js",
+  "types": "./source/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

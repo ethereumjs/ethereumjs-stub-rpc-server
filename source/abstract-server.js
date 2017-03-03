@@ -1,8 +1,5 @@
 "use strict";
 
-/**
- * This is the base prototype for all other servers (IPC, WS, HTTP).  It contains most of the business logic and stubbing logic.
- */
 function AbstractServer() {
   this.nextKey = 1;
   this.activeOutboundChannels = {};
@@ -30,20 +27,10 @@ function AbstractServer() {
   this.addResponder(netVersionResponder.bind(this));
 }
 
-/**
- * Setup an expectation that can be asserted on later.
- * 
- * @param {function(object):boolean} requestMatcher - A function that takes in a JSON-RPC JSO and returns true if it matches the expectation, false otherwise.
- */
 AbstractServer.prototype.addExpectation = function (requestMatcher) {
   this.expectations.push({ requestMatcher: requestMatcher });
 }
 
-/**
- * Setup an expectation that should be met multiple times.
- * 
- * @param {function(object):boolean} requestMatcher - A function that takes in a JSON-RPC JSO and returns true if it matches the expectation, false otherwise.
- */
 AbstractServer.prototype.addExpectations = function (count, requestMatcher) {
   var seen = 0;
   this.expectations.push({ requestMatcher: function (jso) {
@@ -53,35 +40,21 @@ AbstractServer.prototype.addExpectations = function (count, requestMatcher) {
   }.bind(this) });
 }
 
-/**
- * Adds a new stub response for incoming messages.  Responders are processed in reverse order they are added (most recently added responder is checked first).  If the responder does not apply to the incoming message, it should return `undefined` which will cause the stub server to try the next responder.  The first responder to return something other than `undefined` is used and the remaining responders will be skipped.
- * 
- * @param {function(object):any} responseGenerator - A function that takes in a JSON-RPC JSO and returns either an Error or an object/primitive that will be used as the result object.
- */
 AbstractServer.prototype.addResponder = function (responseGenerator) {
   this.responders.unshift({ responseGenerator: responseGenerator });
 }
 
-/**
- * Clears all setup responders *except* the fallback error responder.  Note that this will clear all default responders as well as any custom responders.
- */
-AbstractServer.prototype.clearResponses = function () {
+AbstractServer.prototype.clearResponders = function () {
   this.responders = [];
   this.responders.unshift({ responseGenerator: noMethodFoundResponder });
 }
 
-/**
- * Asserts that all expectations (added via `except(...)`) were met.
- */
 AbstractServer.prototype.assertExpectations = function () {
   var unfulfilledExpectations = this.expectations.length;
   if (unfulfilledExpectations === 0) return;
   throw new Error(this.expectations.length + " expected requests were not seen.");
 }
 
-/**
- * Mine a block.  The block will contain any transactions that have been submitted but not yet mined.  The server will remember this block so it can be fetched later.
- */
 AbstractServer.prototype.mine = function () {
   var parentBlock = this.blocks[this.blocks.length - 1];
   var parentBlockNumber = parseInt(parentBlock.number);

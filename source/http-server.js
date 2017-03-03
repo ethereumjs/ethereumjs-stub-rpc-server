@@ -2,9 +2,6 @@ var AbstractServer = require("./abstract-server.js");
 
 var http = require("http");
 
-/**
- * Implementation of AbstractServer that uses HTTP as its transport.
- */
 function HttpServer(address) {
   AbstractServer.call(this);
 

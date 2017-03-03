@@ -10,7 +10,6 @@ let oboe = require('oboe');
 let os = require('os');
 let WebSocket = require('ws');
 
-
 function testProtocol(transportType, address) {
   function submitJsonRpc(method, params) {
     assert.typeOf(method, "string");
