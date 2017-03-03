@@ -2,6 +2,7 @@
   "name": "ethereumjs-stub-rpc-server",
   "version": "1.0.0",
   "description": "Stub server for testing JavaScript ethereum clients.",
+  "author": "Micah Zoltu <micah@zoltu.net>",
   "main": "source/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
