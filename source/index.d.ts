@@ -8,7 +8,9 @@ declare interface JsonRpcRequest {
 /**
  * This is the base class for all servers types (IPC, WS, HTTP).  It contains most of the business logic and stubbing logic.
  */
-declare interface AbstractServer {
+declare class AbstractServer {
+  protected constructor();
+
   /**
    * Setup an expectation that can be asserted on later.
    * 
@@ -50,21 +52,21 @@ declare interface AbstractServer {
 /**
  * Implementation of AbstractServer that uses HTTP as its transport.
  */
-declare class HttpServer implements AbstractServer {
+declare class HttpServer extends AbstractServer {
   constructor(address: string);
 }
 
 /**
  * Implementation of AbstractServer that uses Web Sockets for its transport.
  */
-declare class WsServer implements AbstractServer {
+declare class WsServer extends AbstractServer {
   constructor(address: string);
 }
 
 /**
  * Implementation of AbstractServer that uses IPC as its transport.
  */
-declare class IpcServer implements AbstractServer {
+declare class IpcServer extends AbstractServer {
   constructor(address: string);
 }
 
