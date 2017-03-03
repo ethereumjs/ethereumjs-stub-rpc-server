@@ -47,6 +47,11 @@ declare class AbstractServer {
    * Mine a block.  The block will contain any transactions that have been submitted but not yet mined.  The server will remember this block so it can be fetched later.
    */
   mine(): void;
+
+  /**
+   * Called when you are done with the server (after test) to close all connections and stop listening on the port.
+   */
+  destroy(): void;
 }
 
 /**
