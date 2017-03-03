@@ -16,7 +16,7 @@ function AbstractServer() {
     uncles: []
   });
 
-  this.clearResponses();
+  this.clearResponders();
   this.addResponder(ethBlockNumberResponder.bind(this));
   this.addResponder(ethCallResponder.bind(this));
   this.addResponder(ethGetBlockByHashResponder.bind(this));
