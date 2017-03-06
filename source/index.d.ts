@@ -1,8 +1,8 @@
 declare interface JsonRpcRequest {
-  public jsonrpc: string;
-  public id: number;
-  public method: string;
-  public params: any[];
+  jsonrpc: string;
+  id: number;
+  method: string;
+  params: any[];
 }
 
 /**
@@ -75,6 +75,12 @@ declare class IpcServer extends AbstractServer {
   constructor(address: string);
 }
 
+/**
+ * Helper method to easily create a stub server based on a transport type and address.  Useful when you want to have a test cover multiple transports as you can iterate over an array and this will handle instantiating the right server for you.
+ * 
+ * @param transportType The type of transport you would like the server to use.  Must be one of HTTP, WS or IPC
+ * @param transportAddress The address the transport should listen on.  e.g., ws://localhost:1337, http://localhost:1337, \\.\pipe\windows_named_pipe
+ */
 declare function createStubServer(transportType: string, transportAddress: string): AbstractServer;
 
 export { createStubServer, HttpServer, WsServer, IpcServer };

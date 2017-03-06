@@ -6,7 +6,7 @@ This library is not intended to simulate the inner workings of a real Ethereum n
 
 # Usage
 
-```
+```javascript
 describe("my ethereum integration test", () => {
 	it("uses a stub server", () => {
 		var server = require('ethereumjs-stub-rpc-server').createStubServer('HTTP', 'http://localhost:1337');
@@ -20,4 +20,4 @@ describe("my ethereum integration test", () => {
 });
 ```
 
-There are JSDocs for all of the methods that give details on their usage.  You can also see the tests for more full featured examples (in particular, see `adds sent transaction to block when mined` for an interesting one that does mining).
+To see the public surface area of this project in TypeScript definition format plus JSDocs (which a TypeScript aware editor will understand) check out [source/index.d.ts](source/index.d.ts).  You can also see the tests for more full featured examples (in particular, see `adds sent transaction to block when mined` for an interesting one that does mining).
