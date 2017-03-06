@@ -10,8 +10,15 @@ This library is not intended to simulate the inner workings of a real Ethereum n
 
 ```javascript
 describe("my ethereum integration test", () => {
+	var server;
+	beforeEach(function () {
+		server = require('ethereumjs-stub-rpc-server').createStubServer('HTTP', 'http://localhost:1337');
+	});
+	afterEach(function () {
+		server.destroy();
+	});
+
 	it("uses a stub server", () => {
-		var server = require('ethereumjs-stub-rpc-server').createStubServer('HTTP', 'http://localhost:1337');
 		server.addExpectation((requestJso) => requestJso.method === "net_version");
 		server.addResponder((requestJso) => (requestJso.method === "net_version") ? "apple" : undefined);
 		myPreferredEthereumJsLibrary.netVersion().then((version) => {
