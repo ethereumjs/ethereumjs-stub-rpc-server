@@ -8,6 +8,7 @@ let http = require('http');
 let net = require('net');
 let oboe = require('oboe');
 let os = require('os');
+let url = require('url');
 let WebSocket = require('ws');
 
 function testProtocol(transportType, address) {
@@ -95,6 +96,34 @@ function testProtocol(transportType, address) {
       assert.match(transaction.blockNumber, /^0x[0-9a-zA-Z]+$/);
     });
   });
+
+  it("correctly deals with remote severing connection", () => new Promise((resolve, reject) => {
+    var requestJson = JSON.stringify({ jsonrpc: "2.0", id: 0, method: "net_version" });
+    switch (transportType) {
+      case "HTTP":
+        var parsedUrl = url.parse(address);
+        var request = http.request({ protocol: parsedUrl.protocol, hostname: parsedUrl.hostname, port: parsedUrl.port, method: "POST" })
+        request.write(requestJson);
+        request.on("error", () => {});
+        request.end();
+        server.destroy(() => setTimeout(resolve, 1000));
+        break;
+      case "WS":
+        let webSocket = new WebSocket(address);
+        webSocket.on('open', () => {
+          webSocket.send(requestJson, () => server.destroy(resolve));
+        });
+        break;
+      case "IPC":
+        var socket = net.connect({ path: address });
+        socket.on('connect', () => {
+          socket.write(requestJson, undefined, () => server.destroy(resolve));
+        });
+        break;
+      default:
+        throw new Error("Unsupported transport type: " + transportType);
+    }
+  }));
 };
 
 describe("HTTP", () => testProtocol("HTTP", "http://localhost:1337"));

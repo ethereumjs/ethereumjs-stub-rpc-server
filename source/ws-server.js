@@ -12,7 +12,12 @@ function WsServer(address) {
   this.underlyingServer.on('connection', function (webSocket) {
     var key = this.nextKey++;
     var outboundChannel = function (json) {
-      webSocket.send(json);
+      webSocket.send(json, {}, (maybeError) => {
+        if (!maybeError) return;
+        // "not opened" means the connection was closed before we could send a response, in this case just drop the response
+        if (maybeError.message === "not opened") return;
+        throw maybeError;
+      });
     }.bind(this);
     this.activeOutboundChannels[key] = outboundChannel;
     this.outstandingSockets[key] = webSocket;
