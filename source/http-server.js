@@ -44,6 +44,7 @@ HttpServer.prototype.constructor = HttpServer;
 HttpServer.prototype.makeRequest = function (jso) { }
 
 HttpServer.prototype.destroy = function (callback) {
+  if (!this.underlyingServer.listening) return callback();
   this.underlyingServer.close(callback);
   for (var key in this.outstandingSockets) {
     this.outstandingSockets[key].destroy();
