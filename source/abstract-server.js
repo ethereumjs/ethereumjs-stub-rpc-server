@@ -17,6 +17,7 @@ function AbstractServer() {
   });
 
   this.clearResponders();
+  this.addResponder(ethGetLogsResponder.bind(this));
   this.addResponder(ethBlockNumberResponder.bind(this));
   this.addResponder(ethCallResponder.bind(this));
   this.addResponder(ethGetBlockByHashResponder.bind(this));
@@ -250,6 +251,14 @@ function ethCallResponder(request) {
 function ethSubscribeResponder(request) {
   if (request.method !== "eth_subscribe") return undefined;
   return "0x00000000000000000000000000000000";
+}
+
+/**
+ * This responder responds to `eth_getLogs` method calls with an empty array
+ */
+function ethGetLogsResponder(request) {
+  if (request.method !== "eth_getLogs") return undefined;
+  return [];
 }
 
 module.exports = AbstractServer;
