@@ -31,6 +31,8 @@ function WsServer(address) {
       delete this.outstandingSockets[key];
     }.bind(this));
   }.bind(this));
+
+  this.addResponder(ethSubscribeResponder.bind(this));
 }
 
 WsServer.prototype = Object.create(AbstractServer.prototype);
@@ -47,3 +49,11 @@ WsServer.prototype.destroy = function (callback) {
 }
 
 module.exports = WsServer;
+
+/**
+ * This responder responds to `eth_subscribe` method calls with a null subscription ID
+ */
+function ethSubscribeResponder(request) {
+  if (request.method !== "eth_subscribe") return undefined;
+  return "0x00000000000000000000000000000000";
+}

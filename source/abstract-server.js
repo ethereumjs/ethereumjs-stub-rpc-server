@@ -24,7 +24,6 @@ function AbstractServer() {
   this.addResponder(ethGetBlockByNumberResponder.bind(this));
   this.addResponder(ethGetTransactionByHashResponder.bind(this));
   this.addResponder(ethSendTransactionResponder.bind(this));
-  this.addResponder(ethSubscribeResponder.bind(this));
   this.addResponder(netVersionResponder.bind(this));
 }
 
@@ -243,14 +242,6 @@ function ethGetTransactionByHashResponder(request) {
  */
 function ethCallResponder(request) {
   if (request.method === "eth_call") return "0x";
-}
-
-/**
- * This responder responds to `eth_subscribe` method calls with a null subscription ID
- */
-function ethSubscribeResponder(request) {
-  if (request.method !== "eth_subscribe") return undefined;
-  return "0x00000000000000000000000000000000";
 }
 
 /**
