@@ -168,9 +168,12 @@ function netVersionResponder(request) {
  */
 function ethGetBlockByNumberResponder(request) {
   if (request.method !== "eth_getBlockByNumber") return undefined;
-  if (!request.params || !request.params[0]) return new Error("eth_getBlockByNumber requires a block number as the first parameter");
-  var blockNumber = request.params[0];
-  if (blockNumber === "latest") blockNumber = this.blocks.length - 1;
+  if (!request.params || !request.params[0] || typeof request.params[0] !== "string") return new Error("eth_getBlockByNumber requires a block number (string) as the first parameter.");
+  var blockNumber;
+  if (request.params[0] === "latest") blockNumber = this.blocks.length - 1;
+  else if (request.params[0] === "earliest") blockNumber = 0;
+  else if (request.params[0] === "pending") throw new Error("'pending' not supported.");
+  else blockNumber = parseInt(request.params[0], 16);
   var block = this.blocks[blockNumber];
   return (block === undefined) ? null : block;
 }
@@ -184,7 +187,8 @@ function ethGetBlockByHashResponder(request) {
   if (request.method !== "eth_getBlockByHash") return undefined;
   if (!request.params || !request.params[0]) return new Error("eth_getBlockByHash requires a block hash as the first parameter");
   var blockHash = request.params[0];
-  for (var block in this.blocks) {
+  for (var i = 0; i < this.blocks.length; ++i) {
+    var block = this.blocks[i];
     if (block.hash === blockHash) return block;
   }
   return null;
