@@ -10,7 +10,7 @@ function AbstractServer() {
   this.blocks.push({
     number: "0x1",
     hash: "0xb10cb10cb10cb10cb10cb10cb10cb10cb10cb10cb10cb10cb10cb10cb10c0000",
-    parentHash: null,
+    parentHash: "0x0000000000000000000000000000000000000000000000000000000000000000",
     sealFields: [],
     transactions: [],
     uncles: []
