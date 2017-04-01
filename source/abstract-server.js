@@ -8,7 +8,7 @@ function AbstractServer() {
   this.transactions = {};
   this.blocks = [];
   this.blocks.push({
-    number: "0x1",
+    number: "0x0",
     hash: "0xb10cb10cb10cb10cb10cb10cb10cb10cb10cb10cb10cb10cb10cb10cb10c0000",
     parentHash: "0x0000000000000000000000000000000000000000000000000000000000000000",
     sealFields: [],
