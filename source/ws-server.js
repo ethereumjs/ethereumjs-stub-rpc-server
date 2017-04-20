@@ -12,6 +12,8 @@ function WsServer(address) {
   this.underlyingServer.on('connection', function (webSocket) {
     var key = this.nextKey++;
     var outboundChannel = function (json) {
+      // don't bother attempting to write to the socket unless its readyState is 1. this avoids a race condition where the socket is in the process of closing when some messages are received. we can't actually write to the socket in this state so we just drop the messages
+      if (webSocket.readyState !== 1) return;
       webSocket.send(json, {}, (maybeError) => {
         if (!maybeError) return;
         // "not opened" means the connection was closed before we could send a response, in this case just drop the response
