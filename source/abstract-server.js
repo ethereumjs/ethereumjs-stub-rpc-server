@@ -18,9 +18,9 @@ function AbstractServer() {
     stateRoot: "0xd5855eb08b3387c0af375e9cdb6acfc05eb8f519e419b874b6ff2ffda7ed1dff",
     miner: "0x4e65fda2159562a496f9f3522f89122a3088497a",
     difficulty: "0x027f07", // 163591
-    totalDifficulty:  "0x027f07", // 163591
+    totalDifficulty: "0x027f07", // 163591
     extraData: "0x0000000000000000000000000000000000000000000000000000000000000000",
-    size:  "0x027f07", // 163591
+    size: "0x027f07", // 163591
     gasLimit: "0x9f759", // 653145
     gasUsed: "0x9f759", // 653145
     timestamp: "0x54e34e8e", // 1424182926
