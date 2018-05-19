@@ -1,6 +1,6 @@
 {
   "name": "ethereumjs-stub-rpc-server",
-  "version": "2.1.6",
+  "version": "2.2.0",
   "description": "Stub server for testing JavaScript ethereum clients.",
   "author": "",
   "main": "./source/index.js",
