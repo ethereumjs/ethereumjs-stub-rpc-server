@@ -1,5 +1,10 @@
 [![npm version](https://badge.fury.io/js/ethereumjs-stub-rpc-server.svg)](https://badge.fury.io/js/ethereumjs-stub-rpc-server)
 
+> [!NOTE]  
+> This package is not maintained by the EthereumJS ([EF JavaScript](https://github.com/ethereumjs/ethereumjs-monorepo)) core team (see "Contributors").
+---
+
+
 # Purpose
 
 Allow for easy stubbing of an Ethereum node when testing Ethereum dApp clients.  It allows you to stub out a response to any request with whatever result you like so it is easy to write tests for your dApps without having to run a full Ethereum node or do actual mining.  It is intended to be run inside your tests and a new server should be created/destroyed with each test case, though you could re-use across test cases if you are okay with using the same responses in each test.
